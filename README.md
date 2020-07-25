@@ -1,8 +1,2 @@
-# nowcode
-你好，leetcode第一题
-xxx
-xxx
+git pull origin master:master
 
-daopdjaopjdapjwjneiaw
-daifnoaneljwbf
-nand
