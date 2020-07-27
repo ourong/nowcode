@@ -1,13 +1,16 @@
 import sys
 
-num = int(sys.stdin.readline().strip())
+def getInput():
+    return int(sys.stdin.readline().strip())
+
+num = getInput()
 while(num > 0):
     previous = -1
     count = 0
     counts = []
     winner = "NIUMEI"
     for i in range(num):
-        current = int(sys.stdin.readline().strip())
+        current = getInput()
         if(current != previous):
             counts.append(count)
             previous = current
@@ -16,4 +19,4 @@ while(num > 0):
             winner = "NIUNIU"
             break
     print(winner)
-    num = int(sys.stdin.readline().strip())
+    num = getInput()
