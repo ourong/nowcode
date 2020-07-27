@@ -1,0 +1,62 @@
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class Main1 {
+	public static void main(String[] args) {
+		Scanner sca = new Scanner(System.in);
+		int n = sca.nextInt();	//²ãÊý
+		int m = sca.nextInt();	//´ÎÊý
+		LinkedList<LinkedList> guizi = new LinkedList<>();
+		for(int i=0;i<n;i++){
+			int size = sca.nextInt();
+			LinkedList<Integer> q = new LinkedList<>();
+			for(int j=0;j<size;j++){
+				q.add(sca.nextInt());
+			}
+			guizi.add(q);
+		}
+
+		int res = 0;
+		for(int i=0;i<m;i++){
+			int v = getmax(guizi);
+			res+=v;
+		}
+		System.out.println(res);
+
+	}
+
+	public static int getmax(LinkedList<LinkedList> guizi){
+		int c = -1;
+		int v = 0;
+		boolean left = true;
+		for(int i=0;i<guizi.size();i++){
+			LinkedList<Integer> ceng = guizi.get(i);
+			if(ceng.size()==0){
+				continue;
+			}
+			int l = ceng.getFirst();
+			if(l>v){
+				c = i;
+				v = l;
+			}
+		}
+		for(int i=0;i<guizi.size();i++){
+			LinkedList<Integer> ceng = guizi.get(i);
+			if(ceng.size()==0){
+				continue;
+			}
+			int r = ceng.getLast();
+			if(r>v){
+				c = i;
+				v = r;
+				left = false;
+			}
+		}
+		if(left){
+			guizi.get(c).removeFirst();
+		}else {
+			guizi.get(c).removeLast();
+		}
+		return v;
+	}
+}
