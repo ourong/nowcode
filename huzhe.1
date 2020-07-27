@@ -1,7 +1,5 @@
 import sys
 
-def getInput():
-    return int(sys.stdin.readline().strip())
 
 num = getInput()
 while(num > 0):
@@ -14,7 +12,10 @@ while(num > 0):
         if(current != previous):
             counts.append(count)
             previous = current
+        else:
+            count = count+1
     for i in reversed(counts):
+        print(i)
         if(i % 2 == 1):
             winner = "NIUNIU"
             break
