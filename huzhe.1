@@ -1,0 +1,19 @@
+import sys
+
+num = int(sys.stdin.readline().strip())
+while(num > 0):
+    previous = -1
+    count = 0
+    counts = []
+    winner = "NIUMEI"
+    for i in range(num):
+        current = int(sys.stdin.readline().strip())
+        if(current != previous):
+            counts.append(count)
+            previous = current
+    for i in reversed(counts):
+        if(i % 2 == 1):
+            winner = "NIUNIU"
+            break
+    system.out.println(winner)
+    num = int(sys.stdin.readline().strip())
