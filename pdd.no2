@@ -1,0 +1,91 @@
+import sys
+N = int(sys.stdin.readline().strip()) # num of dices
+dice_list = []
+for _ in range(N):
+    dice_list.append(map(int, sys.stdin.readline().strip().split(" "))) # input all of dices
+
+# with open('input1.txt', 'r') as f:
+#     N = int(f.readline().strip())
+#     dice_list = []
+#     for idx in range(N):
+#         dice_list.append(map(int, f.readline().strip().split(" ")))
+
+def filp_dice(adice, type):
+    new_dice = [0 for _ in range(6)]
+    change_index = range(6)
+    if type == 0: # up to ahead
+        change_index = [5, 4, 2, 3, 0, 1]
+    if type == 1: # ahead to right
+        change_index = [0, 1, 5, 4, 2, 3]
+    if type == 2: # up to right
+        change_index = [2, 3, 1, 0, 4, 5]
+
+    for idx in range(6):
+        new_dice[idx] = adice[change_index[idx]]
+    return new_dice
+
+
+# change_all_the dice into the small least into the ahead and the
+for idx, _dice in enumerate(dice_list):
+    num_min = min(_dice)
+    index_min = _dice.index(num_min)
+    if index_min == 1:
+        for _ in range(3):
+            dice_list[idx] = filp_dice(dice_list[idx], 0)
+    if index_min == 2:
+        for _ in range(1):
+            dice_list[idx] = filp_dice(dice_list[idx], 1)
+    if index_min == 3:
+        for _ in range(3):
+            dice_list[idx] = filp_dice(dice_list[idx], 1)
+    if index_min == 4:
+        dice_list[idx] = dice_list[idx]
+    if index_min == 5:
+        for _ in range(2):
+            dice_list[idx] = filp_dice(dice_list[idx], 0)
+    if index_min == 0:
+        dice_list[idx] = filp_dice(dice_list[idx], 0)
+
+    _temp = dice_list[idx][0:4]
+    num_min = min(_temp)
+    index_min = _temp.index(num_min)
+    if index_min == 0:
+        dice_list[idx] = dice_list[idx]
+    if index_min == 1:
+        for _ in range(2):
+            dice_list[idx] = filp_dice(dice_list[idx], 2)
+    if index_min == 2:
+        for _ in range(1):
+            dice_list[idx] = filp_dice(dice_list[idx], 2)
+    if index_min == 3:
+        for _ in range(3):
+            dice_list[idx] = filp_dice(dice_list[idx], 2)
+
+flag = [1 for _ in range(N)]
+for idx in range(N-1):
+    if flag[idx] == -1:
+        continue
+    for jdx in range(idx+1, N):
+        if flag[jdx] == -1:
+            continue
+        p = True
+        for kdx in range(6):
+            if dice_list[idx][kdx] != dice_list[jdx][kdx]:
+                p = False
+        if p:
+            flag[jdx] = -1
+            flag[idx] += 1
+
+output_num = 0
+output_list = []
+for idx in range(N):
+    if flag[idx] != -1:
+        output_num += 1
+        output_list.append(flag[idx])
+
+print output_num # the num
+
+output_list.sort(reverse=True) # sorted from big to small
+
+for line in output_list: # output
+    print line
