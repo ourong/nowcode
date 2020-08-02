@@ -86,7 +86,7 @@ for idx, _dice in enumerate(dice_list):
         for i_index in index_min:
             final_sorted_dice_list[idx].append(to_top(sorted_dice, i_index))
 
-print(dice_list)
+# print(dice_list)
 flag = [1 for _ in range(N)]
 for idx in range(N-1):
     if flag[idx] == -1:
