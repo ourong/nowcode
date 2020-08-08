@@ -1,0 +1,33 @@
+def read():
+    list(map(int,input().split(" ")))
+
+def cons(num):
+    h = num // 3600 + 8
+    m = (num % 3600) // 60
+    s = num % 60
+    z = "am"
+    if h >= 12:
+        h -= 12
+        z = "pm"
+    h = "0"+str(h) if h<10 else str(h)
+    m = "0"+str(m) if m<10 else str(m)
+    s = "0"+str(s) if s<10 else str(s)
+    print(h+":"+m+":"+s+" "+z)
+
+def helper(a,b):
+    if(len(a) == 1):
+        return a[0]
+    if(len(a) == 2):
+        return min(sum(a),sum(b))
+    return min(a[0]+helper(a[1:], b[1:]), min(a[0]+a[1], b[0])+helper(a[2:], b[2:]))
+
+T = read()[0]
+for i in range(T):
+    n = read()[0]
+    a = []
+    b = []
+    for i in range(n):
+        a.append(read()[0])
+    for i in range(n-1):
+        b.append(read()[0])
+    cons(helper(a,b))
