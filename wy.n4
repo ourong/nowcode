@@ -1,0 +1,43 @@
+import sys
+n, m = list(map(int, sys.stdin.readline().strip().split(" ")))
+dice_list = []
+for idx in range(m):
+    dice_list.append(list(map(lambda x: x - 1, map(int, sys.stdin.readline().strip().split(" ")))))
+
+with open('input1.txt', 'r') as f:
+    n, m = list(map(int, f.readline().strip().split(" ")))
+    dice_list = []
+    for idx in range(m):
+        dice_list.append(list(map(lambda x: x-1, map(int, f.readline().strip().split(" ")))))
+
+# dice_list.append()
+node_set = [[] for _ in range(n)]
+
+for idx in range(m):
+   node_set[dice_list[idx][1]].append(dice_list[idx][0])
+
+
+for idx in range(n):
+    jdx = 1
+    kdx = 0
+    if len(node_set[idx]) == 0:
+        continue
+    while jdx > kdx:
+        for node_ in node_set[kdx]:
+            if node_ not in set(node_set[idx]):
+                node_set[idx].append(node_)
+                jdx += 1
+        kdx += 1
+
+# for idx in range(n):
+#     node_set[idx] = set(node_set[idx])
+flag_all = [[False for _ in range(n)]for _ in range(n)]
+num_out = 0
+for idx in range(n):
+    for jdx in node_set[idx]:
+        if (not flag_all[idx][jdx]) and idx in set(node_set[jdx]):
+            num_out += 1
+            flag_all[idx][jdx] = True
+            flag_all[jdx][idx] = True
+
+print(num_out)
