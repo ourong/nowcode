@@ -1,0 +1,10 @@
+n = list(map(int,input().split(" ")))[0]
+a = list(map(int,input().split(" ")))
+def helper(num):
+    if num % 2 == 0:
+        return num/2
+    return (num-3)/2+1
+result = 0
+for num in a:
+    result += helper(num)
+print(result)
